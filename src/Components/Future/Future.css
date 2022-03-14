@@ -1,0 +1,26 @@
+.cover{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    color:black;
+}
+
+.time{
+    font-size: max(3vmin, 15px);
+    font-weight: 900;
+}
+
+.temp{
+    font-size: max(2.5vmin, 15px);
+}
+
+.temp span{
+    font-weight: 900;
+    margin-left: 0.125em;
+}
+
+/* 
+Regular 400
+Bold 700 italic */

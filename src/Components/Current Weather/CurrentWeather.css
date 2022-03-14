@@ -1,0 +1,121 @@
+.current{
+    font-family: 'Lora', serif;
+    color:white;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.current-left{
+    flex-grow: 2;
+    display: flex;  
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+}
+
+.current-right{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.current--city .MuiInput-input{
+    display: inline-block;
+    font-weight: 800;
+    font-size: 7vmin;
+    margin: 0.5vh 0;
+    color: white;
+    width: 50%;
+}
+.inline-title .MuiInputBase-root:hover:not(.Mui-disabled)::before,
+.inline-title .MuiInputBase-root::before,
+.inline-title .MuiInputBase-root::after{
+    border: none;
+    content: '';
+}
+
+
+.inline-title .MuiSvgIcon-root{
+    fill: black;
+
+}
+
+.current--date{
+    font-size: 3vmin;
+}
+
+.current--img{
+    width: 15vh;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.current--weather{
+    font-family: 700;
+    font-style: italic;
+    font-size: 5vmin;
+    /* width: 15vw; */
+    /* text-align: center; */
+    margin: 0;
+}
+
+.current--temp{
+    font-size: 10vw;
+    margin: 0;
+    text-align: right;
+}
+
+.current--feelsLike{
+    font-size: 3vw;
+    margin: 0;
+    text-align: center;
+}
+
+span{
+    font-size: 0.5em;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 0.125em;
+}
+
+.current-sunset-flex{
+    display: flex; 
+    align-items: center;
+}
+
+.current--sunset-icon{
+    fill: white;
+    width: 5vw;
+    margin: 1vh 1vw;
+    aspect-ratio: 1;
+}
+
+.current--sunset{
+    font-size: 2vw;
+    font-weight: 700;
+    display: inline-block;
+    margin: 0;
+}
+
+@media only screen and (max-width: 850px) {
+    .current--city{
+        font-size: 9vmin;
+    }
+    .current--temp{
+        font-size: 15vw;
+    }
+    .current--feelsLike{
+        font-size: 5vmin;
+        margin: 0.75rem 0
+    }
+    .current--sunset{
+        font-size: 4vw;
+    }
+}
+
+
+/* 
+Regular 400
+Bold 700 italic */
