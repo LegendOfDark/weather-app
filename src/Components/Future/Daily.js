@@ -10,8 +10,6 @@ function Daily(props) {
 
     if (props.id === 0) date = "Today"
 
-    // console.log(data)
-
     return (
       <div className="cover">
           <h2 className="time">{date}</h2>

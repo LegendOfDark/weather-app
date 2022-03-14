@@ -8,7 +8,6 @@ function Alert(props) {
 
     const alert = props.alerts[props.id]
 
-    console.log("alert is", alert)
 
     let date = moment((alert.start + props.timezoneOffset) * 1000);
     date = date.utc().format('MMMM Do [at] h:mm:ss a');

@@ -22,37 +22,34 @@ function Tabs(props) {
   const [value, setValue] = useState('1');
   const previousRef = useRef();
   const nextRef = useRef();
-  let hourlyComponenets = []
-  let dailyComponents = []
-  let alertComponents = []
-
-  console.log("tab rendering rn")
-
+  let hourlyComponenets = [];
+  let dailyComponents = [];
+  let alertComponents = [];
   
   // function for changing slider
   const handleChange = (event, newValue) => {
-    setValue(newValue)
+    setValue(newValue);
   };
 
   // function for changing the hours
   const handleClick = (e) => {
-    const { name } = e.target
+    const { name } = e.target;
     let newArr;
     if (name === 'next' && start !== hourlyComponenets.length) {
       newArr = hourlyComponenets.slice(start, start + limit)
-      setRenderComps(newArr)
-      start = start + limit
+      setRenderComps(newArr);
+      start = start + limit;
     }
     if (name === 'previous' && (start - limit) >= 0) {
-      newArr = hourlyComponenets.slice(start - limit, start)
-      setRenderComps(newArr)
-      start = start - limit
+      newArr = hourlyComponenets.slice(start - limit, start);
+      setRenderComps(newArr);
+      start = start - limit;
     }
 
-    if (start !== 0) previousRef.current.style.display = 'inline-block'
-    else previousRef.current.style.display = 'none'
-    if (start !== hourlyComponenets.length) nextRef.current.style.display = 'inline-block'
-    else nextRef.current.style.display = 'none'
+    if (start !== 0) previousRef.current.style.display = 'inline-block';
+    else previousRef.current.style.display = 'none';
+    if (start !== hourlyComponenets.length) nextRef.current.style.display = 'inline-block';
+    else nextRef.current.style.display = 'none';
   }
 
   // adding hourly components
@@ -63,13 +60,13 @@ function Tabs(props) {
 
   // adding daily components 
   for (let y = 0; y < props.dailyData.length; y++) {
-    dailyComponents.push(<Daily key={y} id={y} timezoneOffset={props.timezoneOffset} dailyData={props.dailyData} />)
+    dailyComponents.push(<Daily key={y} id={y} timezoneOffset={props.timezoneOffset} dailyData={props.dailyData} />);
   }
 
   // adding alert Components
   if (props.alerts !== undefined){
     for (let i = 0; i < props.alerts.length; i++) {
-      alertComponents.push(<Alert key={i} id={i} timezoneOffset={props.timezoneOffset}  alerts={props.alerts} />)
+      alertComponents.push(<Alert key={i} id={i} timezoneOffset={props.timezoneOffset}  alerts={props.alerts} />);
     }
   }
 

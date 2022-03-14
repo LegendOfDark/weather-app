@@ -36,7 +36,7 @@ function CurrentWeather(props) {
               id="outlined-read-only-input"
               className="current--city"
               variant="standard"
-              value={city}
+              value={city.toUpperCase()}
               inputProps={{
                 readOnly: textField,
               }}
@@ -57,10 +57,6 @@ function CurrentWeather(props) {
                 </InputAdornment>
               }
             />
-            {/* {textField ? <EditIcon className="editIcon" fontSize="large" color="success" onClick={() => setTextField(!textField)} />
-          :
-          <CloudDoneIcon className="editIcon" fontSize="large" onClick={() => {props.updateCity(city);setTextField(!textField)}}/> }*/}
-
 
           </div>
           <h2 className='current--date'>{date}</h2>

@@ -4,7 +4,6 @@ import moment from 'moment';
 
 function Hourly(props) {
     const data = props.hourlyData[props.id]
-    //   console.log("Hourly Props are", props)
 
   let date = moment((data.dt + props.timezoneOffset) * 1000);
   date = date.utc().format('h A');

@@ -24,16 +24,19 @@ class App extends Component {
       dailyData: [],
       isLoading: true,
       timezone: '',
-      alerts: ''
+      alerts: '',
+      errorMessage: '',
     }
   }
 
 updateCity = (newCity) => {
-  console.log(newCity)
-  this.setState({city: newCity})
-  console.log(this.state.city)
-  this.getCityCoords()
-  console.log("current city in state ", this.state.city)
+  if (newCity.trim() === '') {
+    this.setState({errorMessage: 'City cannot be empty', error: true});
+    return;
+  }
+  this.setState({city: newCity}, () => {
+    this.getCityCoords();
+  })
 }
 
   componentDidMount() {
@@ -44,22 +47,27 @@ updateCity = (newCity) => {
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${this.state.city}&appid=${this.apiKey}`)
       .then(response => response.json())
       .then(response => {
+        if (response.length === 0) {
+          this.setState({errorMessage: 'Please enter a valid city name', error: true});
+          return;
+        }
         this.setState({
           lat: response[0]['lat'],
-          lon: response[0]['lon']
+          lon: response[0]['lon'],
+          isLoading: true
         })
-        this.getWeatherData(this.state.error)
+        this.setState({errorMessage: '', error: false});
+        this.getWeatherData();
       })
       .catch(() => this.setState({ error: true }))
   }
 
 
-  getWeatherData = (error) => {
-    if (error === true) return
+  getWeatherData = () => {
+    if (this.state.error === true) return
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lon}&exclude=minutely&units=metric&appid=${this.apiKey}`)
       .then(response => response.json())
       .then(response => {
-        // console.log(response['current'])
         this.setState({
           currentData: response['current'],
           hourlyData: response['hourly'],
@@ -68,8 +76,6 @@ updateCity = (newCity) => {
           alerts: response['alerts'],
           isLoading: false
         })
-        // this.render()
-        // console.log(this.state.alerts)
       })
       .catch(() => this.setState({ error: true }))
   }
@@ -79,23 +85,25 @@ updateCity = (newCity) => {
   }
 
   render() {
-    console.log("inside app render")
     return (
 
       <div className="background">
         {
           this.state.error &&
           <Collapse in={this.state.error}>
-            <Alert severity="error">Error loading Data - Reload Page</Alert>
+            <Alert severity="error">{this.state.errorMessage ? this.state.errorMessage :
+            'Error loading Data - Reload Page'}
+            </Alert>
           </Collapse>
         }
         <div className="container">
-          {this.state.isLoading ? <CircularProgress className="spinner" size='10em' />
-            :
-            <div>
-              <CurrentWeather timeConversion={this.timeConversion} updateCity={this.updateCity} timezoneOffset={this.state.timezone_offset} city={this.state.city} currentData={this.state.currentData} />
-              <Tabs timeConversion={this.timeConversion} timezoneOffset={this.state.timezone_offset} hourlyData={this.state.hourlyData} dailyData={this.state.dailyData} alerts={this.state.alerts} />
-            </div>}
+          {this.state.isLoading ? 
+          <CircularProgress className="spinner" size='10em' />
+          :
+          <div>
+            <CurrentWeather timeConversion={this.timeConversion} updateCity={this.updateCity} timezoneOffset={this.state.timezone_offset} city={this.state.city} currentData={this.state.currentData} />
+            <Tabs timeConversion={this.timeConversion} timezoneOffset={this.state.timezone_offset} hourlyData={this.state.hourlyData} dailyData={this.state.dailyData} alerts={this.state.alerts} />
+          </div>}
         </div>
       </div>
     );
